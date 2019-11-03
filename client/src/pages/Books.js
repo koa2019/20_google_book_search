@@ -8,7 +8,7 @@ function Books() {
             <Row>
                 <Col size="md-12">
                     <Jumbotron>
-                        <h1>Lets Find you a book</h1>
+                        <h1>Lets Find You Some Books</h1>
                     </Jumbotron>
                 </Col>
             </Row>
