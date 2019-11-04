@@ -1,5 +1,9 @@
 # Create React Express App
 
+npm install
+run mongod in separate terminal window
+node script/seedDb.js
+npm run start
 ## About This Boilerplate
 
 This setup allows for a Node/Express/React app which can be easily deployed to Heroku.

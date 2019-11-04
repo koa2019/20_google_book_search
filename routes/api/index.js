@@ -1,11 +1,11 @@
 const router = require("express").Router();
 const bookRoutes = require('./bookRoutes');
-const apiRoutes = require('./apiRoutes');
+const googleRoutes = require('./googleRoutes');
 
-// Book routes
+// Book database routes. Matches /api/books
 router.use('/books', bookRoutes);
 
-// api Routes
-router.use('/googleBooks', apiRoutes);
+// api Google Routes. Matches /api/googleBooks
+router.use('/googleBooks', googleRoutes);
 
 module.exports = router;

@@ -3,8 +3,8 @@ import axios from 'axios';
 // export an object with a "search" method that searches the google API for the passed query
 // exported different methods requesting & posting new data to mongo database
 export default {
-    findBooks: function (query) {
-        return axios.get(url);
+    searchGoogle: function (query) {
+        return axios.get("/");
     },
     // Gets all books
     getBooks: function () {
