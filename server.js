@@ -15,11 +15,19 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// API and view
-app.use(routes);
+// connect mongoose to Mongo db
+// If deployed, use the deployed database, connect mongoose to remote mongolab database.
+// Otherwise use the local mongoHeadlines database
+var MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/googlebooks';
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
+.then(() => {
+    console.log("Connection worked")
+}).catch ((err)=> {
+    console.log("there is an err", err)
+});
 
-// connect to mongo
-mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/googlebooks");
+// all routes - API and view
+app.use(routes);
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);

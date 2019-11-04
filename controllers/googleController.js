@@ -6,7 +6,7 @@ const limit = '&limit=10';
 
 // Export an object with a "search" method that searches the Giphy API for the passed query
 export default {
-    findBooks: function(query) {
+    searchGoogle: function(query) {
         let url = BASEURL + query + limit;
         console.log(url);
         return axios.get(url);
