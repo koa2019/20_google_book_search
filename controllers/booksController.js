@@ -1,3 +1,4 @@
+// db queries
 const db = require("../models");
 
 // Defining methods for the booksController
