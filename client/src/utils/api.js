@@ -7,7 +7,7 @@ export default {
     // The getGoogle method retrieves books from the server
     // It accepts a "query" or term to search the book api for
     getGoogle: function (query) {
-        return axios.get("/api/googleBooks", { params: { q: query } });
+        return axios.get(`/api/googleBooks/${query}`);
     },
     // Gets all books
     getBooks: function () {

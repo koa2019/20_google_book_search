@@ -10,73 +10,88 @@ import API from '../utils/API';
 
 class Books extends Component {
 
-    
 
-state = {
-    books: [],
-    googleSearch: '',
-    loading: false,
-    isProblem: false
-}
 
-componentDidMount() {
-    this.loadGoogleBooks();
+    state = {
+        books: [],
+        googleSearch: '',
+        loading: false,
+        isProblem: false
+    }
 
-}
+    componentDidMount() {
+        this.loadThis();
 
-loadGoogleBooks() {
-    this.setState({ loading: true, isProblem: false }, () => {
-        API.getGoogle(this.state.googleSearch)
-            .then(res => {
-                this.setState({ books: res.data, loading: false });
-                console.log(this.state.books)
-            })
-            .catch(err => {
-                console.log(err)
-                this.setState({ loading: false, isProblem: true });
-            });
-    });
-}
+    }
 
-handleChange(){
+    loadThis() {
+        this.setState({ loading: true, isProblem: false }, () => {
+            API.getBooks(this.state.books)
+                .then(res => {
+                    this.setState({ books: res.data, loading: false });
+                    console.log(this.state.books)
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.setState({ loading: false, isProblem: true });
+                });
+        });
+    }
 
-}
+    loadGoogleBooks() {
+            API.getGoogle(this.state.googleSearch)
+                .then(res => {
+                    this.setState({ books: res.data });
+                    console.log(this.state.books)
+                })
+                .catch(err => {
+                    console.log(err)
+                    this.setState({ loading: false, isProblem: true });
+                });
+    }
 
-handleSubmit(event){
-    event.preventDefault();
-}
+    handleChange() {
 
-render() {
-    return (
-        <Container fluid>
-            <Row>
-                <Col size="md-12">
-                    <Jumbotron>
-                        <h1>React Google Books Search</h1>
-                    </Jumbotron>
-                </Col>
-            </Row>
-            <Row>
-                <Col size="md-12">
-                    <h4>Book Search</h4>
-                    {/* <Form /> */}
-                    {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-                    <form onSubmit={this.handleSubmit}>
+    }
 
-                        {/* include validation with required or other standard HTML validation rules */}
-                        <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleChange} />
+    handleSubmit(event) {
+        event.preventDefault();
+        this.loadGoogleBooks();
+        console.log(this.state.books)
 
-                        <button type="submit">Submit</button>
-                    </form>
-                </Col>
-            </Row>
-            <Row>
+    }
 
-                <Col size="md-12">
-                    <h4>Results</h4>
+    render() {
+        return (
+            <Container fluid>
+                <Row>
+                    <Col size="md-12">
+                        <Jumbotron>
+                            <h1>React Google Books Search</h1>
+                        </Jumbotron>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col size="md-12">
+                        <h4>Book Search</h4>
+                        {/* <Form /> */}
+                        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
+                        <form onSubmit={this.handleSubmit}>
 
-                    {/* if/then/else conditional for List. loop through each index in books array */}
-                    {/* {!this.state.books.length ? (
+                            {/* include validation with required or other standard HTML validation rules */}
+                            <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleChange} />
+
+                            <button type="submit">Submit</button>
+                        </form>
+                    </Col>
+                </Row>
+                <Row>
+
+                    <Col size="md-12">
+                        <h4>Results</h4>
+
+                        {/* if/then/else conditional for List. loop through each index in books array */}
+                        {/* {!this.state.books.length ? (
                             <h3>0 Results</h3>
                         ) : (
                                 <List>
@@ -89,11 +104,11 @@ render() {
                                     })}
                                 </List>
                             )} */}
-                </Col>
-            </Row>
-        </Container >
-    );
-}
+                    </Col>
+                </Row>
+            </Container >
+        );
+    }
 }
 
 export default Books;

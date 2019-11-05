@@ -1,9 +1,7 @@
 const router = require("express").Router();
 const googleController = require("../../controllers/googleController");
 
-// routes to google api query. Matches /api/googleBooks/
-// router.route('/googleBooks')
-router.route('/googleBooks')
-    .get(googleController.getGoogle)
+// routes to google api query. Matches /api/googleBooks/:query
+router.route('/:query', googleController)
 
 module.exports = router;
