@@ -5,6 +5,7 @@ import Jumbotron from "../components/Jumbotron";
 // import Form from '../components/Form';
 import { List, ListItem } from '../components/List';
 import DeleteBtn from '../components/DeleteBtn';
+import SaveBtn from '../components/SaveBtn';
 import API from '../utils/API';
 
 
@@ -13,41 +14,28 @@ class Books extends Component {
 
 
     state = {
-        books: [],
+        gBooks: [],
         googleSearch: '',
         loading: false,
         isProblem: false
     }
 
     componentDidMount() {
-        this.loadThis();
-
+        this.loadGoogleBooks();
     }
 
-    loadThis() {
+    loadGoogleBooks() {
         this.setState({ loading: true, isProblem: false }, () => {
-            API.getBooks(this.state.books)
+            API.getGoogle(this.state.googleSearch)
                 .then(res => {
-                    this.setState({ books: res.data, loading: false });
-                    console.log(this.state.books)
+                    this.setState({ gBooks: res.data });
+                    console.log(this.state.gBooks)
                 })
                 .catch(err => {
                     console.log(err)
                     this.setState({ loading: false, isProblem: true });
                 });
         });
-    }
-
-    loadGoogleBooks() {
-            API.getGoogle(this.state.googleSearch)
-                .then(res => {
-                    this.setState({ books: res.data });
-                    console.log(this.state.books)
-                })
-                .catch(err => {
-                    console.log(err)
-                    this.setState({ loading: false, isProblem: true });
-                });
     }
 
     handleInputChange() {
@@ -57,7 +45,7 @@ class Books extends Component {
     handleSubmit(event) {
         event.preventDefault();
         this.loadGoogleBooks();
-        console.log(this.state.books)
+        console.log(this.state.gBooks)
 
     }
 
@@ -91,20 +79,24 @@ class Books extends Component {
                         <h4>Results</h4>
 
                         {/* if/then/else conditional for List. loop through each index in books array */}
-                        {/* {!this.state.books.length ? (
-                            <h3>0 Results</h3>
+                        {!this.state.gBooks.length ? (
+                            <h3>Uh-Oh No Books Found. Try Again</h3>
                         ) : (
                                 <List>
-                                    {this.state.books.map(book => {
+                                    {this.state.gBooks.map(book => {
                                         return (
-                                            <ListItem key={book._id}>
-                                                <h5>{book.title}</h5>
-                                                <DeleteBtn />
+                                            <ListItem key={book.items.id}>
+                                                <h4>Title: {book.items.volumeInfo.title}</h4>
+                                                <h5>Authors:</h5>
+                                                <p>{book.items.volumeInfo.authors}</p>
+                                                <h5>Description: </h5>
+                                                <p>{book.items.volumeInfo.authors.description}</p>
+                                                <SaveBtn /> <DeleteBtn />
                                             </ListItem>
                                         );
                                     })}
                                 </List>
-                            )} */}
+                            )}
                     </Col>
                 </Row>
             </Container >

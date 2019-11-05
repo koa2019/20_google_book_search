@@ -62,7 +62,7 @@ class Saved extends Component {
                     return (
                       <ListItem key={book._id}>
                         <h4>Title: {book.title}</h4>
-                        <h5>Author:</h5>
+                        <h5>Authors:</h5>
                         <p>{book.author}</p>
                         <h5>Description: </h5>
                         <p>{book.synopsis}</p>
