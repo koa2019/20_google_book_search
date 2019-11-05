@@ -5,8 +5,8 @@ import React from "react";
 // That way we don't have to define them all individually
 function SaveBtn(props) {
   return (
-    <span className="save-btn" {...props} role="button" tabIndex="0">
-      ✗
+    <span className="btn btn-secondary save-btn float-sm-right mx-2" {...props} role="button" tabIndex="0">
+      Save
     </span>
   );
 }

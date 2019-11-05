@@ -14,24 +14,27 @@ class Saved extends Component {
     author: '',
     description: '',
     image: '',
-    link:'',
+    link: '',
     loading: false,
     isProblem: false
   }
 
   componentDidMount() {
-    this.loadBooks();
+    this.loadThis();
 
   }
 
-  loadBooks() {
+  loadThis() {
     this.setState({ loading: true, isProblem: false }, () => {
-      API.getBooks().then(res => {
-        this.setState({ books: res.data, loading: false });
-        console.log(this.state.books)
-      }).catch(err => {
-        this.setState({ loading: false, isProblem: true });
-      });
+      API.getBooks(this.state.books)
+        .then(res => {
+          this.setState({ books: res.data, loading: false });
+          console.log(this.state.books)
+        })
+        .catch(err => {
+          console.log(err)
+          this.setState({ loading: false, isProblem: true });
+        });
     });
   }
 
@@ -48,20 +51,27 @@ class Saved extends Component {
         </Row>
         <Row>
           <Col size="md-12">
-            <h4>Results</h4>
+            <h4>Saved Books</h4>
 
             {/* if/then/else conditional for List. loop through each index in books array */}
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem>
-                    <ViewBtn />
-                    <DeleteBtn />
-                  </ListItem>
-                ))}
-              </List>
+            {!this.state.books.length ? (
+              <h3>0 Results</h3>
             ) : (
-                <h3>0 Results</h3>
+                <List>
+                  {this.state.books.map(book => {
+                    return (
+                      <ListItem key={book._id}>
+                        <h4>Title: {book.title}</h4>
+                        <h5>Author:</h5>
+                        <p>{book.author}</p>
+                        <h5>Description: </h5>
+                        <p>{book.synopsis}</p>
+                        
+                        <ViewBtn /> <DeleteBtn />
+                      </ListItem>
+                    );
+                  })}
+                </List>
               )}
           </Col>
         </Row>

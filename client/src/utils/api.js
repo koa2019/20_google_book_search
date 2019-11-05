@@ -4,8 +4,8 @@ import axios from 'axios';
 // exported different methods requesting & posting new data to mongo database
 export default {
 
-    // The getGoogle method retrieves books from the server
-    // It accepts a "query" or term to search the book api for
+    // The getGoogle method retrieves books from google API
+    // It accepts a query str from frontend to search google book api for
     getGoogle: function (query) {
         return axios.get(`/api/googleBooks/${query}`);
     },

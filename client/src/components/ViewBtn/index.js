@@ -5,8 +5,8 @@ import React from "react";
 // That way we don't have to define them all individually
 function ViewBtn(props) {
   return (
-    <span className="view-btn" {...props} role="button" tabIndex="0">
-      ✗
+    <span className="btn btn-secondary view-btn mx-2 float-right" {...props} role="button" tabIndex="0">
+      View
     </span>
   );
 }

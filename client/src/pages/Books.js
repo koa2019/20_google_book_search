@@ -50,7 +50,7 @@ class Books extends Component {
                 });
     }
 
-    handleChange() {
+    handleInputChange() {
 
     }
 
@@ -79,7 +79,7 @@ class Books extends Component {
                         <form onSubmit={this.handleSubmit}>
 
                             {/* include validation with required or other standard HTML validation rules */}
-                            <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleChange} />
+                            <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleInputChange} />
 
                             <button type="submit">Submit</button>
                         </form>
@@ -97,7 +97,8 @@ class Books extends Component {
                                 <List>
                                     {this.state.books.map(book => {
                                         return (
-                                            <ListItem>
+                                            <ListItem key={book._id}>
+                                                <h5>{book.title}</h5>
                                                 <DeleteBtn />
                                             </ListItem>
                                         );
