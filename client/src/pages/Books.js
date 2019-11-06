@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import useForm from "react-hook-form";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
-// import Form from '../components/Form';
+import Form from '../components/Form';
 import { List, ListItem } from '../components/List';
 import DeleteBtn from '../components/DeleteBtn';
 import SaveBtn from '../components/SaveBtn';
@@ -10,8 +10,6 @@ import API from '../utils/API';
 
 
 class Books extends Component {
-
-
 
     state = {
         gBooks: [],
@@ -62,15 +60,14 @@ class Books extends Component {
                 <Row>
                     <Col size="md-12">
                         <h4>Book Search</h4>
-                        {/* <Form /> */}
+                        <Form />
                         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-                        <form onSubmit={this.handleSubmit}>
+                        {/* <form onSubmit={this.handleSubmit}> */}
 
                             {/* include validation with required or other standard HTML validation rules */}
-                            <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleInputChange} />
-
+                            {/* <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleInputChange} />
                             <button type="submit">Submit</button>
-                        </form>
+                        </form> */}
                     </Col>
                 </Row>
                 <Row>

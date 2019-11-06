@@ -10,11 +10,11 @@ class Saved extends Component {
 
   state = {
     books: [],
-    title: '',
-    author: '',
-    description: '',
-    image: '',
-    link: '',
+    // title: '',
+    // author: '',
+    // description: '',
+    // image: '',
+    // link: '',
     loading: false,
     isProblem: false
   }
@@ -66,7 +66,6 @@ class Saved extends Component {
                         <p>{book.author}</p>
                         <h5>Description: </h5>
                         <p>{book.synopsis}</p>
-                        
                         <ViewBtn /> <DeleteBtn />
                       </ListItem>
                     );
