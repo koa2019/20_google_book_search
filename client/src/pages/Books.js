@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import useForm from "react-hook-form";
 import { Col, Row, Container } from "../components/Grid";
 import Jumbotron from "../components/Jumbotron";
 import Form from '../components/Form';
@@ -13,18 +12,19 @@ class Books extends Component {
 
     state = {
         gBooks: [],
-        googleSearch: '',
+        googleQuery: '',
         loading: false,
         isProblem: false
     }
 
-    componentDidMount() {
-        this.loadGoogleBooks();
+    constructor(){
+        super();
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-
     loadGoogleBooks() {
         this.setState({ loading: true, isProblem: false }, () => {
-            API.getGoogle(this.state.googleSearch)
+            console.log(this.state.googleQuery)
+            API.getGoogle(this.state.googleQuery)
                 .then(res => {
                     this.setState({ gBooks: res.data });
                     console.log(this.state.gBooks)
@@ -40,10 +40,12 @@ class Books extends Component {
 
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        this.loadGoogleBooks();
-        console.log(this.state.gBooks)
+    handleSubmit(queryStr) {
+        console.log('Ive been called', queryStr);
+        // console.log(this.state.gBooks)
+        this.setState({ googleQuery: queryStr.searchWord }, () => {
+            this.loadGoogleBooks();
+        })
 
     }
 
@@ -60,12 +62,12 @@ class Books extends Component {
                 <Row>
                     <Col size="md-12">
                         <h4>Book Search</h4>
-                        <Form />
+                        <Form onSubmit={this.handleSubmit} name1={'hello'} />
                         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
                         {/* <form onSubmit={this.handleSubmit}> */}
 
-                            {/* include validation with required or other standard HTML validation rules */}
-                            {/* <input name="searchWord" placeholder='Book title' value={this.state.googleSearch} onChange={this.handleInputChange} />
+                        {/* include validation with required or other standard HTML validation rules */}
+                        {/* <input name="searchWord" placeholder='Book title' value={this.state.googleQuery} onChange={this.handleInputChange} />
                             <button type="submit">Submit</button>
                         </form> */}
                     </Col>
