@@ -15,11 +15,11 @@ class Saved extends Component {
   }
 
   componentDidMount() {
-    this.loadThis();
+    this.loadSavedBookList();
 
   }
 
-  loadThis() {
+  loadSavedBookList() {
     this.setState({ loading: true, isProblem: false }, () => {
       API.getBooks(this.state.books)
         .then(res => {
@@ -35,6 +35,7 @@ class Saved extends Component {
 
 
   render() {
+    console.log('render() this.state ', this.state)
     return (
       <Container>
         <Row>
@@ -56,11 +57,12 @@ class Saved extends Component {
                   {this.state.books.map(book => {
                     return (
                       <ListItem key={book._id}>
+                        <img src={book.image} alt={"book thumbnail"} />
                         <h4>Title: {book.title}</h4>
                         <h5>Authors:</h5>
-                        <p>{book.author}</p>
+                        <p>{book.authors}</p>
                         <h5>Description: </h5>
-                        <p>{book.synopsis}</p>
+                        <p>{book.description}</p>
                         <ViewBtn /> <DeleteBtn />
                       </ListItem>
                     );
