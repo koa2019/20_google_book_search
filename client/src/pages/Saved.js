@@ -10,11 +10,6 @@ class Saved extends Component {
 
   state = {
     books: [],
-    // title: '',
-    // author: '',
-    // description: '',
-    // image: '',
-    // link: '',
     loading: false,
     isProblem: false
   }

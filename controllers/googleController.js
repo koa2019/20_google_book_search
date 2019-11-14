@@ -11,14 +11,16 @@ module.exports = {
         // console.log(query);
 
         let search = req.params.query;
-        console.log(search)
-        let url = "https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + process.env.APIKEY;
-        console.log(url);
+        console.log('controller', search)
+        // let url = "https://www.googleapis.com/books/v1/volumes?q=" + search + "&key=" + process.env.APIKEY;
+        let url = "https://www.googleapis.com/books/v1/volumes?q=" + search
+
+        console.log("==============",url);
 
         axios.get(url)
             .then(booksResults => {
-                console.log(booksResults)
-                res.json(booksResults)
+                // console.log(booksResults.data.items)
+                res.json(booksResults.data.items)
             })
             .catch(err => {
                 console.log(err);

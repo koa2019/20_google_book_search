@@ -7,7 +7,10 @@ export default {
     // The getGoogle method retrieves books from google API
     // It accepts a query str from frontend to search google book api for
     getGoogle: function (query) {
-        return axios.get(`/api/googleBooks/${query}`);
+        // console.log(query)
+        // return axios.get(`/api/googleBooks/${query}`);
+        return axios.get("/api/googleBooks/" + query);
+
     },
     // Gets all books
     getBooks: function () {
@@ -23,6 +26,7 @@ export default {
     },
     // Saves a book to the database
     saveBook: function (bookData) {
+        console.log('utils ', bookData)
         return axios.post("/api/books", bookData);
     }
 };

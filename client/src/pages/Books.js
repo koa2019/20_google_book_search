@@ -9,25 +9,25 @@ import API from '../utils/API';
 
 
 class Books extends Component {
-
-    state = {
-        gBooks: [],
-        googleQuery: '',
-        loading: false,
-        isProblem: false
+    constructor(props) {
+        super(props);
+        this.state = {
+            gBooks: [],
+            googleQuery: '',
+            loading: false,
+            isProblem: false
+        }
+        // this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    constructor(){
-        super();
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
     loadGoogleBooks() {
         this.setState({ loading: true, isProblem: false }, () => {
             console.log(this.state.googleQuery)
             API.getGoogle(this.state.googleQuery)
                 .then(res => {
+                    // console.log('res ', res.data)
                     this.setState({ gBooks: res.data });
-                    console.log(this.state.gBooks)
+                    // console.log(this.state.gBooks)
                 })
                 .catch(err => {
                     console.log(err)
@@ -36,11 +36,27 @@ class Books extends Component {
         });
     }
 
-    handleInputChange() {
-
+    saveBook(googleBook) {
+        console.log("saveBook firing ", googleBook)
+        const saveJasonBookData = {
+            bookid: googleBook.id,
+            title: googleBook.volumeInfo.title,
+            author: googleBook.volumeInfo.publisher,
+            previewlink: googleBook.volumeInfo.previewLink,
+            description: googleBook.volumeInfo.description,
+            saved: true
+          };
+          console.log('saveJason ', saveJasonBookData)
+          API.saveBook(saveJasonBookData)
+        //   .then(res => {
+        //       console.log('res', res)
+        //   })
+        //   .catch(err => {
+        //       console.log(err)
+        //   })
     }
 
-    handleSubmit(queryStr) {
+    handleSubmit = queryStr =>{
         console.log('Ive been called', queryStr);
         // console.log(this.state.gBooks)
         this.setState({ googleQuery: queryStr.searchWord }, () => {
@@ -50,6 +66,7 @@ class Books extends Component {
     }
 
     render() {
+        console.log('render ', this.state)
         return (
             <Container fluid>
                 <Row>
@@ -63,13 +80,6 @@ class Books extends Component {
                     <Col size="md-12">
                         <h4>Book Search</h4>
                         <Form onSubmit={this.handleSubmit} name1={'hello'} />
-                        {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-                        {/* <form onSubmit={this.handleSubmit}> */}
-
-                        {/* include validation with required or other standard HTML validation rules */}
-                        {/* <input name="searchWord" placeholder='Book title' value={this.state.googleQuery} onChange={this.handleInputChange} />
-                            <button type="submit">Submit</button>
-                        </form> */}
                     </Col>
                 </Row>
                 <Row>
@@ -84,13 +94,13 @@ class Books extends Component {
                                 <List>
                                     {this.state.gBooks.map(book => {
                                         return (
-                                            <ListItem key={book.items.id}>
-                                                <h4>Title: {book.items.volumeInfo.title}</h4>
+                                            <ListItem key={book.id}>
+                                                <h4>Title: {book.volumeInfo.title}</h4>
                                                 <h5>Authors:</h5>
-                                                <p>{book.items.volumeInfo.authors}</p>
+                                                <p>{book.volumeInfo.authors}</p>
                                                 <h5>Description: </h5>
-                                                <p>{book.items.volumeInfo.authors.description}</p>
-                                                <SaveBtn /> <DeleteBtn />
+                                                <p>{book.volumeInfo.description}</p>
+                                                <SaveBtn onClick={()=>this.saveBook(book)}/> <DeleteBtn />
                                             </ListItem>
                                         );
                                     })}
