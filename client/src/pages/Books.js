@@ -22,7 +22,7 @@ class Books extends Component {
 
     loadGoogleBooks() {
         this.setState({ loading: true, isProblem: false }, () => {
-            console.log(this.state.googleQuery)
+            // console.log(this.state.googleQuery)
             API.getGoogle(this.state.googleQuery)
                 .then(res => {
                     // console.log('res ', res.data)
@@ -37,59 +37,62 @@ class Books extends Component {
     }
 
     saveBook(googleBook) {
-        console.log("saveBook firing ", googleBook)
+        // console.log("saveBook firing ", googleBook)
         const saveJasonBookData = {
             bookid: googleBook.id,
             title: googleBook.volumeInfo.title,
-            author: googleBook.volumeInfo.publisher,
-            previewlink: googleBook.volumeInfo.previewLink,
+            authors: googleBook.volumeInfo.publisher,
+            link: googleBook.volumeInfo.previewLink,
             description: googleBook.volumeInfo.description,
+            image: googleBook.volumeInfo.imageLinks.thumbnail,
             saved: true
           };
-          console.log('saveJason ', saveJasonBookData)
+          console.log('saveBook variable ', saveJasonBookData)
           API.saveBook(saveJasonBookData)
-        //   .then(res => {
-        //       console.log('res', res)
-        //   })
-        //   .catch(err => {
-        //       console.log(err)
-        //   })
+          .then(res => {
+              console.log('API.saveBook promise> res', res)
+          })
+          .catch(err => {
+              console.log(err)
+          })
     }
 
-    handleSubmit = queryStr =>{
-        console.log('Ive been called', queryStr);
-        // console.log(this.state.gBooks)
+    
+    handleSubmit = queryStr => {
+        console.log('handleSubmit() queryStr ', queryStr);
         this.setState({ googleQuery: queryStr.searchWord }, () => {
+            console.log('handleSubmit .setState googleQuery ')
+            // function called to set/save google search results to gBooks
             this.loadGoogleBooks();
         })
 
     }
 
     render() {
-        console.log('render ', this.state)
+        console.log('inside render() this.state ', this.state)
         return (
-            <Container fluid>
+            <Container>
                 <Row>
-                    <Col size="md-12">
+                <Col size="col-md-12 mx-auto">
                         <Jumbotron>
                             <h1>React Google Books Search</h1>
                         </Jumbotron>
                     </Col>
                 </Row>
                 <Row>
-                    <Col size="md-12">
+                <Col size="col-md-12 mx-auto text-center">
                         <h4>Book Search</h4>
-                        <Form onSubmit={this.handleSubmit} name1={'hello'} />
+                        <Form onSubmit={this.handleSubmit} />
                     </Col>
                 </Row>
                 <Row>
 
-                    <Col size="md-12">
-                        <h4>Results</h4>
+                <Col size="col-md-12 mx-auto">
+                        <h4 className="text-center">Search Results</h4>
 
-                        {/* if/then/else conditional for List. loop through each index in books array */}
+                        {/* Ternary if/then/else conditional for List. loop through each index in books array */}
                         {!this.state.gBooks.length ? (
-                            <h3>Uh-Oh No Books Found. Try Again</h3>
+                            <h3 className="text-center">Uh-Oh No Books Found. Search Again</h3>
                         ) : (
                                 <List>
                                     {this.state.gBooks.map(book => {

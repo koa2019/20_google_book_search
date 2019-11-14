@@ -36,21 +36,21 @@ class Saved extends Component {
 
   render() {
     return (
-      <Container fluid>
+      <Container>
         <Row>
-          <Col size="md-12">
+        <Col size="col-md-12 mx-auto">
             <Jumbotron>
-              <h1>Saved Book List</h1>
+              <h4 className="text-center">Saved Book List</h4>
             </Jumbotron>
           </Col>
         </Row>
         <Row>
-          <Col size="md-12">
-            <h4>Saved Books</h4>
+        <Col size="col-md-12 mx-auto">
+            <h4 className="text-center">Saved Books</h4>
 
             {/* if/then/else conditional for List. loop through each index in books array */}
             {!this.state.books.length ? (
-              <h3>0 Results</h3>
+              <h3 className="text-center">0 Saved Books</h3>
             ) : (
                 <List>
                   {this.state.books.map(book => {

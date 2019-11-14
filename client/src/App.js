@@ -4,11 +4,6 @@ import Nav from './components/Nav';
 import NoMatch from './pages/NoMatch';
 import Books from './pages/Books';
 import Saved from './pages/Saved';
-import Quiz from './pages/Quiz';
-import FrontPage from "./pages/FrontPage";
-import UserProfile from "./pages/UserProfile";
-import CandidateProfile from "./pages/CandidateProfile";
-import "./App.css";
 
 class App extends Component {
   render() {
@@ -20,11 +15,6 @@ class App extends Component {
             <Route exact path='/' component={Books} />
             <Route exact path='/books' component={Books} />
             <Route exact path='/saved' component={Saved} />
-            {/* change /home to / after file is merged with backend */}
-            <Route exact path="/home" component={FrontPage} />
-            <Route exact path='/quiz' component={Quiz} />
-            <Route exact path="/userprofile"  component={UserProfile} />
-          <Route exact path="/candidateprofile"  component={CandidateProfile} />
             <Route component={NoMatch} />
           </Switch>
         </div>
