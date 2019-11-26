@@ -11,8 +11,6 @@ const app = express();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-
-
 // connect mongoose to Mongo db
 // If deployed, use the deployed database, connect mongoose to remote mongolab database.
 // Otherwise use the local mongoHeadlines database
