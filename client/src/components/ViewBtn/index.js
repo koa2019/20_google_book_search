@@ -5,9 +5,10 @@ import React from "react";
 // That way we don't have to define them all individually
 function ViewBtn(props) {
   return (
-    <span className="btn btn-secondary view-btn mx-2 float-right" {...props} role="button" tabIndex="0">
+    <a className="btn btn-secondary view-btn mx-2 float-right" {...props} role="button" tabIndex="0"
+    href={props.link}>
       View
-    </span>
+    </a>
   );
 }
 

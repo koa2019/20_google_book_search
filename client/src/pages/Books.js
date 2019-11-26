@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
+import { Link } from "react-router-dom";
 import Jumbotron from "../components/Jumbotron";
 import Form from '../components/Form';
 import { List, ListItem } from '../components/List';
-import DeleteBtn from '../components/DeleteBtn';
 import SaveBtn from '../components/SaveBtn';
 import API from '../utils/API';
+import ViewBtn from "../components/ViewBtn";
 
 
 class Books extends Component {
@@ -59,9 +60,12 @@ class Books extends Component {
 
     
     handleSubmit = queryStr => {
+
         console.log('handleSubmit() queryStr ', queryStr);
+
         this.setState({ googleQuery: queryStr.searchWord }, () => {
             console.log('handleSubmit .setState googleQuery ')
+
             // function called to set/save google search results to gBooks
             this.loadGoogleBooks();
         })
@@ -92,7 +96,7 @@ class Books extends Component {
 
                         {/* Ternary if/then/else conditional for List. loop through each index in books array */}
                         {!this.state.gBooks.length ? (
-                            <h3 className="text-center">Uh-Oh No Books Found. Search Again</h3>
+                            <h3 className="text-center">Start Searching for Your Next Book</h3>
                         ) : (
                                 <List>
                                     {this.state.gBooks.map(book => {
@@ -103,7 +107,8 @@ class Books extends Component {
                                                 <p>{book.volumeInfo.authors}</p>
                                                 <h5>Description: </h5>
                                                 <p>{book.volumeInfo.description}</p>
-                                                <SaveBtn onClick={()=>this.saveBook(book)}/> <DeleteBtn />
+                                                <ViewBtn link={"https://books.google.com/books?id=" + book.id}/>
+                                                <SaveBtn onClick={()=>this.saveBook(book)}/> 
                                             </ListItem>
                                         );
                                     })}
