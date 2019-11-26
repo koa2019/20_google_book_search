@@ -47,18 +47,18 @@ class Books extends Component {
             description: googleBook.volumeInfo.description,
             image: googleBook.volumeInfo.imageLinks.thumbnail,
             saved: true
-          };
-          console.log('saveBook variable ', saveJasonBookData)
-          API.saveBook(saveJasonBookData)
-          .then(res => {
-              console.log('API.saveBook promise> res', res)
-          })
-          .catch(err => {
-              console.log(err)
-          })
+        };
+        console.log('saveBook variable ', saveJasonBookData)
+        API.saveBook(saveJasonBookData)
+            .then(res => {
+                console.log('API.saveBook promise> res', res)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
-    
+
     handleSubmit = queryStr => {
 
         console.log('handleSubmit() queryStr ', queryStr);
@@ -77,38 +77,41 @@ class Books extends Component {
         return (
             <Container>
                 <Row>
-                <Col size="col-md-12 mx-auto">
+                    <Col size="col-md-12 mx-auto">
                         <Jumbotron>
                             <h1>React Google Books Search</h1>
                         </Jumbotron>
                     </Col>
                 </Row>
                 <Row>
-                <Col size="col-md-12 mx-auto text-center">
+                    <Col size="col-md-12 mx-auto text-center">
                         <h4>Book Search</h4>
                         <Form onSubmit={this.handleSubmit} />
                     </Col>
                 </Row>
                 <Row>
 
-                <Col size="col-md-12 mx-auto">
-                        <h4 className="text-center">Search Results</h4>
+                    <Col size="col-md-12 mx-auto">
+                        {/* <h4 className="text-center">Search Results</h4> */}
 
                         {/* Ternary if/then/else conditional for List. loop through each index in books array */}
                         {!this.state.gBooks.length ? (
-                            <h3 className="text-center">Start Searching for Your Next Book</h3>
+                            <h3 className="text-center p-3 m-4">Start Searching for Your Next Book</h3>
                         ) : (
                                 <List>
+                                    <h4 className="text-center">Search Results</h4>
+
                                     {this.state.gBooks.map(book => {
                                         return (
                                             <ListItem key={book.id}>
+                                                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
                                                 <h4>Title: {book.volumeInfo.title}</h4>
                                                 <h5>Authors:</h5>
                                                 <p>{book.volumeInfo.authors}</p>
                                                 <h5>Description: </h5>
                                                 <p>{book.volumeInfo.description}</p>
-                                                <ViewBtn link={"https://books.google.com/books?id=" + book.id}/>
-                                                <SaveBtn onClick={()=>this.saveBook(book)}/> 
+                                                <ViewBtn id={book.id} />
+                                                <SaveBtn onClick={() => this.saveBook(book)} />
                                             </ListItem>
                                         );
                                     })}

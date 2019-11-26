@@ -6,7 +6,7 @@ import React from "react";
 function ViewBtn(props) {
   return (
     <a className="btn btn-secondary view-btn mx-2 float-right" {...props} role="button" tabIndex="0"
-    href={props.link}>
+    href={"https://books.google.com/books?id=" + props.id}>
       View
     </a>
   );
