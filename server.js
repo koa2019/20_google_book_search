@@ -1,6 +1,5 @@
 require('dotenv').config()
 const express = require("express");
-const path = require("path");
 const mongoose = require('mongoose');
 const routes = require('./routes');
 
@@ -10,6 +9,14 @@ const app = express();
 // Define middleware here
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static("client/build"));
+}
+
+// all routes - API and view
+app.use("/", routes);
 
 // connect mongoose to Mongo db
 // If deployed, use the deployed database, connect mongoose to remote mongolab database.
@@ -22,13 +29,8 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true })
     console.log("there is an err", err)
 });
 
-// all routes - API and view
-app.use("/", routes);
 
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static("client/build"));
-}
+
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
