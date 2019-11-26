@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Col, Row, Container } from "../components/Grid";
-import { Link } from "react-router-dom";
 import Jumbotron from "../components/Jumbotron";
 import Form from '../components/Form';
 import { List, ListItem } from '../components/List';
@@ -51,10 +50,12 @@ class Books extends Component {
         console.log('saveBook variable ', saveJasonBookData)
         API.saveBook(saveJasonBookData)
             .then(res => {
-                console.log('API.saveBook promise> res', res)
+                console.log('API.saveBook promise> res', res.data)
+                alert("Book Saved!")
             })
             .catch(err => {
                 console.log(err)
+                alert("Uh-Oh Book Not Saved")
             })
     }
 
@@ -73,7 +74,7 @@ class Books extends Component {
     }
 
     render() {
-        console.log('inside render() this.state ', this.state)
+        console.log('render() state =======', this.state)
         return (
             <Container>
                 <Row>
@@ -104,7 +105,8 @@ class Books extends Component {
                                     {this.state.gBooks.map(book => {
                                         return (
                                             <ListItem key={book.id}>
-                                                <img src={book.volumeInfo.imageLinks.thumbnail} alt={book.volumeInfo.title} />
+                                                
+                                                <img src={book.volumeInfo.imageLinks.smallThumbnail} alt={book.volumeInfo.title} />
                                                 <h4>Title: {book.volumeInfo.title}</h4>
                                                 <h5>Authors:</h5>
                                                 <p>{book.volumeInfo.authors}</p>

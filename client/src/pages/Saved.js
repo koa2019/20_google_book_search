@@ -33,9 +33,14 @@ class Saved extends Component {
     });
   }
 
+  deleteBook =(id) => {
+    API.deleteBook(id)
+    .then(res => this.loadSavedBookList())
+    .catch(err => console.log('Err deleting book'))
+  }
 
   render() {
-    console.log('render() this.state ', this.state)
+    console.log('render() state ======== ', this.state)
     return (
       <Container>
         <Row>
@@ -63,7 +68,8 @@ class Saved extends Component {
                         <p>{book.authors}</p>
                         <h5>Description: </h5>
                         <p>{book.description}</p>
-                        <ViewBtn /> <DeleteBtn />
+                        <ViewBtn id={book.bookid} /> 
+                        <DeleteBtn onClick={() => this.deleteBook(book._id)}/>
                       </ListItem>
                     );
                   })}
