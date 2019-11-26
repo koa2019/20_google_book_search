@@ -1,12 +1,12 @@
 {
-  "name": "mern",
+  "name": "google-react-book-search",
   "version": "1.0.0",
   "description": "",
-  "homepage": "",
+  "homepage": "https://google-books-search-20.herokuapp.com/",
   "engines": {
     "node": "10.15.3"
   },
-  "main": "server.js",
+  "main": "./build/server.js",
   "scripts": {
     "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
     "start:prod": "node server.js",
@@ -16,7 +16,7 @@
     "build": "cd client && npm run build",
     "heroku-postbuild": "npm run build"
   },
-  "author": "",
+  "author": "Danielle Fernandez",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^4.1.0",
@@ -27,7 +27,6 @@
     "dotenv": "^8.2.0",
     "express": "^4.16.3",
     "if-env": "^1.0.4",
-    "mongoose": "^5.7.7",
-    "serve": "^11.2.0"
+    "mongoose": "^5.7.7"
   }
 }
